@@ -104,4 +104,4 @@ prevBtn.addEventListener("click", async () => {
   }
 });
 
-loadPdf('/pdf');
+loadPdf('/api/pdf');

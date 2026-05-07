@@ -8,17 +8,27 @@ const port = process.env.PORT || 4000;
 const pdfPath = path.join(__dirname, "..", "assets", "book.pdf");
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, "..", "..", "viewer")));
 
-app.get("/", (_req, res) => {
-  res.sendFile(path.join(__dirname, "..", "..", "viewer", "index.html"));
-});
+const frontendDir = path.join(__dirname, "..", "..", "viewer");
+if (fs.existsSync(frontendDir)) {
+  app.use(express.static(frontendDir));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api/')) {
+        next();
+        return;
+      }
+    res.sendFile(path.join(frontendDir, 'index.html'));
+  });
+} else {
+  console.warn(`Viewer frontend not found at ${frontendDir}. Please build the viewer first.`);
+}
 
-app.get("/health", (_req, res) => {
+
+app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });
 
-app.get("/pdf", (req, res) => {
+app.get("/api/pdf", (req, res) => {
   fs.access(pdfPath, fs.constants.R_OK, (error) => {
     if (error) {
       return res.status(404).json({
