@@ -1,0 +1,128 @@
+:root {
+  --bg: #f5f1e8;
+  --panel: #fffdf8;
+  --ink: #2f2a24;
+  --accent: #7a4f2a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, .shell {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--ink);
+  background: radial-gradient(circle at top, #fff8e6, var(--bg));
+}
+
+.shell {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  align-items: center;      /* vertical align */
+  justify-content: center;  /* optional horizontal align */
+
+  min-height: 100vh;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+.toolbar {
+  /* display: grid; */
+  display: none;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+input,
+button {
+  border: 1px solid #c8b8a3;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: #fff;
+}
+
+.book-wrap {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.book {
+  min-height: 480px;
+  background: var(--panel);
+  border: 1px solid #dfd3c2;
+  border-radius: 16px;
+  box-shadow: 0 16px 45px rgba(78, 62, 40, 0.18);
+  padding: 16px;
+  perspective: 1200px;
+}
+
+.spread {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  transform-origin: center;
+}
+
+.spread.flipping-next {
+  animation: flipNext 380ms ease;
+}
+
+.spread.flipping-prev {
+  animation: flipPrev 380ms ease;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid #e5ddd2;
+}
+
+.status {
+  margin: 10px 0 0;
+}
+
+.nav {
+  min-width: 70px;
+}
+
+@keyframes flipNext {
+  0% { transform: rotateY(0deg) scale(1); opacity: 1; }
+  50% { transform: rotateY(-15deg) scale(0.99); opacity: 0.75; }
+  100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes flipPrev {
+  0% { transform: rotateY(0deg) scale(1); opacity: 1; }
+  50% { transform: rotateY(15deg) scale(0.99); opacity: 0.75; }
+  100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+}
+
+@media (max-width: 800px) {
+  .book-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .spread {
+    grid-template-columns: 1fr;
+  }
+}

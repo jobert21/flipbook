@@ -1,0 +1,9 @@
+{
+  "name": "flipbook-pdf-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser flipbook page for a PDF",
+  "scripts": {
+    "start": "python3 -m http.server 5173"
+  }
+}
