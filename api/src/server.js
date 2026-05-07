@@ -8,6 +8,11 @@ const port = process.env.PORT || 4000;
 const pdfPath = path.join(__dirname, "..", "assets", "book.pdf");
 
 app.use(cors());
+app.use(express.static(path.join(__dirname, "..", "..", "viewer")));
+
+app.get("/", (_req, res) => {
+  res.sendFile(path.join(__dirname, "..", "..", "viewer", "index.html"));
+});
 
 app.get("/health", (_req, res) => {
   res.json({ ok: true });
