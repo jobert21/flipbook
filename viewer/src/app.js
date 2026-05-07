@@ -104,4 +104,4 @@ prevBtn.addEventListener("click", async () => {
   }
 });
 
-loadPdf('http://localhost:4000/pdf');
+loadPdf('/pdf');
